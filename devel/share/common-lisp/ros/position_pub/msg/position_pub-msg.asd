@@ -1,0 +1,1 @@
+/home/abdul/Mech_catkin_ws/devel/.private/position_pub/share/common-lisp/ros/position_pub/msg/position_pub-msg.asd

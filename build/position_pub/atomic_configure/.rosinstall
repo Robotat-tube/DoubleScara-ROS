@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/abdul/Mech_catkin_ws/devel/.private/position_pub/setup.sh

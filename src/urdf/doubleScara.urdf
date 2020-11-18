@@ -1,0 +1,99 @@
+<robot name="DoubleScara">
+<link name="base_link"/>
+
+<link name="rightWing">
+  <visual>
+    <origin xyz="0 0 0.5" rpy="0 0 0" />
+    <geometry>
+      <box size="0.1 0.1 1.0"/>
+    </geometry>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0.5" rpy="0 0 0" />
+    <geometry>
+      <box size="0.1 0.1 1.0"/>
+    </geometry>
+
+  </collision>
+</link>
+
+<joint name="rightShoulder" type="revolute">
+    <origin xyz="0.5 0 0" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="rightWing" />
+    <limit lower="-1.571" upper="1.571" effort="100" velocity="100" />
+    <axis xyz="0 1 0" />
+</joint>
+
+<link name="leftWing">
+  <visual>
+    <origin xyz="0 0 0.5" rpy="0 0 0" />
+    <geometry>
+      <box size="0.1 0.1 1.0"/>
+    </geometry>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0.5" rpy="0 0 0" />
+    <geometry>
+      <box size="0.1 0.1 1.0"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="leftShoulder" type="revolute">
+    <origin xyz="-0.5 0 0" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="leftWing" />
+    <limit lower="-1.571" upper="1.571" effort="100" velocity="100" />
+    <axis xyz="0 1 0" />
+</joint>
+
+
+<link name="rightArm">
+  <visual>
+    <origin xyz="0 0 0.5" rpy="0 0 0" />
+    <geometry>
+      <box size="0.1 0.1 1.0"/>
+    </geometry>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0.5" rpy="0 0 0" />
+    <geometry>
+      <box size="0.1 0.1 1.0"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="rightElbow" type="revolute">
+    <origin xyz="0 0 1" rpy="0 -0.48 0" />
+    <parent link="rightWing" />
+    <child link="rightArm" />
+    <limit lower="-1.571" upper="1.571" effort="100" velocity="100" />
+    <axis xyz="0 1 0" />
+</joint>
+
+<link name="leftArm">
+  <visual>
+    <origin xyz="0 0 0.5" rpy="0 0 0" />
+    <geometry>
+      <box size="0.1 0.1 1.0"/>
+    </geometry>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0.5" rpy="0 0 0" />
+    <geometry>
+      <box size="0.1 0.1 1.0"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="leftElbow" type="revolute">
+    <origin xyz="0 0 1" rpy="0 0.48 0" />
+    <parent link="leftWing" />
+    <child link="leftArm" />
+    <limit lower="-1.571" upper="1.571" effort="100" velocity="100" />
+    <axis xyz="0 1 0" />
+</joint>
+
+
+</robot>
