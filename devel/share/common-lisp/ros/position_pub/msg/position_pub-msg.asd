@@ -1,1 +1,9 @@
-/home/abdul/Mech_catkin_ws/devel/.private/position_pub/share/common-lisp/ros/position_pub/msg/position_pub-msg.asd
+
+(cl:in-package :asdf)
+
+(defsystem "position_pub-msg"
+  :depends-on (:roslisp-msg-protocol :roslisp-utils )
+  :components ((:file "_package")
+    (:file "Num" :depends-on ("_package_Num"))
+    (:file "_package_Num" :depends-on ("_package"))
+  ))

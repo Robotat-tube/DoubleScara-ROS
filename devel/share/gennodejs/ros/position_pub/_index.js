@@ -1,1 +1,6 @@
-/home/abdul/Mech_catkin_ws/devel/.private/position_pub/share/gennodejs/ros/position_pub/_index.js
+
+"use strict";
+
+module.exports = {
+  msg: require('./msg/_index.js'),
+};
