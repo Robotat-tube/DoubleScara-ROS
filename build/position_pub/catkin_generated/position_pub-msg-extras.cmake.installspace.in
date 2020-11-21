@@ -1,2 +1,0 @@
-set(position_pub_MESSAGE_FILES "msg/Num.msg")
-set(position_pub_SERVICE_FILES "")
