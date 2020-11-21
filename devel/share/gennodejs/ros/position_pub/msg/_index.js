@@ -1,1 +1,8 @@
-/home/abdul/Mech_catkin_ws/devel/.private/position_pub/share/gennodejs/ros/position_pub/msg/_index.js
+
+"use strict";
+
+let Num = require('./Num.js');
+
+module.exports = {
+  Num: Num,
+};

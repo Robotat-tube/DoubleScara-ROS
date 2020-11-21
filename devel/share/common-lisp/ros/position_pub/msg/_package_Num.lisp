@@ -1,1 +1,4 @@
-/home/abdul/Mech_catkin_ws/devel/.private/position_pub/share/common-lisp/ros/position_pub/msg/_package_Num.lisp
+(cl:in-package position_pub-msg)
+(cl:export '(A-VAL
+          A
+))

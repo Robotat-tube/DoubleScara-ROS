@@ -6,11 +6,11 @@
 
 #IncludeRegexTransform: 
 
-/home/abdul/Mech_catkin_ws/src/position_pub/src/talker.cpp
+/home/felix/git/DoubleScara-ROS/src/position_pub/src/talker.cpp
 ros/ros.h
-/home/abdul/Mech_catkin_ws/src/position_pub/src/ros/ros.h
+/home/felix/git/DoubleScara-ROS/src/position_pub/src/ros/ros.h
 std_msgs/Int16MultiArray.h
-/home/abdul/Mech_catkin_ws/src/position_pub/src/std_msgs/Int16MultiArray.h
+/home/felix/git/DoubleScara-ROS/src/position_pub/src/std_msgs/Int16MultiArray.h
 
 /opt/ros/melodic/include/ros/advertise_options.h
 ros/forwards.h

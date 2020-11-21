@@ -1,2 +1,2 @@
-set(position_pub_MESSAGE_FILES "/home/abdul/Mech_catkin_ws/src/position_pub/msg/Num.msg")
+set(position_pub_MESSAGE_FILES "/home/felix/git/DoubleScara-ROS/src/position_pub/msg/Num.msg")
 set(position_pub_SERVICE_FILES "")

@@ -1,39 +1,14 @@
-[35m[1mScanning dependencies of target _position_pub_generate_messages_check_deps_Num[0m
-[35m[1mScanning dependencies of target std_msgs_generate_messages_py[0m
-[35m[1mScanning dependencies of target std_msgs_generate_messages_nodejs[0m
-[  0%] Built target std_msgs_generate_messages_nodejs
-[  0%] Built target std_msgs_generate_messages_py
-[35m[1mScanning dependencies of target std_msgs_generate_messages_lisp[0m
-[35m[1mScanning dependencies of target std_msgs_generate_messages_eus[0m
-[  0%] Built target _position_pub_generate_messages_check_deps_Num
 [  0%] Built target std_msgs_generate_messages_lisp
 [  0%] Built target std_msgs_generate_messages_eus
-[35m[1mScanning dependencies of target std_msgs_generate_messages_cpp[0m
-[35m[1mScanning dependencies of target talker[0m
-[35m[1mScanning dependencies of target listener[0m
+[  0%] Built target std_msgs_generate_messages_nodejs
+[  0%] Built target std_msgs_generate_messages_py
 [  0%] Built target std_msgs_generate_messages_cpp
-[  9%] [32mBuilding CXX object CMakeFiles/talker.dir/src/talker.cpp.o[0m
-[35m[1mScanning dependencies of target position_pub_generate_messages_py[0m
-[ 18%] [32mBuilding CXX object CMakeFiles/listener.dir/src/listener.cpp.o[0m
-[ 27%] [34m[1mGenerating Python from MSG position_pub/Num[0m
-[ 36%] [34m[1mGenerating Python msg __init__.py for position_pub[0m
-[ 36%] Built target position_pub_generate_messages_py
-[35m[1mScanning dependencies of target position_pub_generate_messages_nodejs[0m
-[ 45%] [34m[1mGenerating Javascript code from position_pub/Num.msg[0m
-[ 45%] Built target position_pub_generate_messages_nodejs
-[35m[1mScanning dependencies of target position_pub_generate_messages_lisp[0m
-[ 54%] [34m[1mGenerating Lisp code from position_pub/Num.msg[0m
-[ 54%] Built target position_pub_generate_messages_lisp
-[35m[1mScanning dependencies of target position_pub_generate_messages_eus[0m
-[ 63%] [34m[1mGenerating EusLisp code from position_pub/Num.msg[0m
-[ 72%] [34m[1mGenerating EusLisp manifest code for position_pub[0m
-[ 72%] Built target position_pub_generate_messages_eus
-[35m[1mScanning dependencies of target position_pub_generate_messages_cpp[0m
-[ 81%] [34m[1mGenerating C++ code from position_pub/Num.msg[0m
-[ 81%] Built target position_pub_generate_messages_cpp
-[35m[1mScanning dependencies of target position_pub_generate_messages[0m
-[ 81%] Built target position_pub_generate_messages
-[ 90%] [32m[1mLinking CXX executable /home/abdul/Mech_catkin_ws/devel/.private/position_pub/lib/position_pub/talker[0m
-[100%] [32m[1mLinking CXX executable /home/abdul/Mech_catkin_ws/devel/.private/position_pub/lib/position_pub/listener[0m
-[100%] Built target talker
-[100%] Built target listener
+[ 18%] Built target talker
+[ 18%] Built target _position_pub_generate_messages_check_deps_Num
+[ 36%] Built target listener
+[ 45%] Built target position_pub_generate_messages_lisp
+[ 63%] Built target position_pub_generate_messages_eus
+[ 72%] Built target position_pub_generate_messages_cpp
+[ 81%] Built target position_pub_generate_messages_nodejs
+[100%] Built target position_pub_generate_messages_py
+[100%] Built target position_pub_generate_messages

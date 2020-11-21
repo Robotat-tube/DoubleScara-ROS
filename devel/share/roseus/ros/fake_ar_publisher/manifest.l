@@ -1,1 +1,0 @@
-/home/abdul/Mech_catkin_ws/devel/.private/fake_ar_publisher/share/roseus/ros/fake_ar_publisher/manifest.l

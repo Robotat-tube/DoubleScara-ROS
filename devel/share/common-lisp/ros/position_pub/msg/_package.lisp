@@ -1,1 +1,7 @@
-/home/abdul/Mech_catkin_ws/devel/.private/position_pub/share/common-lisp/ros/position_pub/msg/_package.lisp
+(cl:defpackage position_pub-msg
+  (:use )
+  (:export
+   "<NUM>"
+   "NUM"
+  ))
+
