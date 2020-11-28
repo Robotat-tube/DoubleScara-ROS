@@ -8,6 +8,7 @@ int get_int()
 {
   std::string input;
   int tmp = 0;
+  bool valid = false;
   do
   {
     try
@@ -15,13 +16,13 @@ int get_int()
       std::cout << "Auswahl: ";
       std::getline(std::cin, input);
       tmp = std::stoi(input);
+      valid = true;
     }
     catch (std::invalid_argument const&)
     {
       std::cout << "Bitte eine Zahl eingeben!" << std::endl;
-      tmp = 0;
     }
-  } while (tmp == 0);
+  } while (!valid);
   return tmp;
 }
 
