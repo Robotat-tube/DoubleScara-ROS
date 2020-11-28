@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>user_interface</name>
+  <name>user_interface_scara</name>
   <version>0.0.1</version>
   <description>The user_interface package</description>
 

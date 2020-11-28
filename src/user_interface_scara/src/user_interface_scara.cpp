@@ -30,19 +30,22 @@ int get_float()
 {
   std::string input;
   float tmp = 0;
+  bool valid = false;
   do
   {
     try
     {
       std::getline(std::cin, input);
       tmp = std::stof(input);
+      valid = true;
+      std::cout << "Test" << std::endl;
+      ROS_INFO("Bitte eine Zahl eingeben");
     }
     catch (std::invalid_argument const&)
     {
-      std::cout << "Bitte eine Zahl eingeben!" << std::endl;
-      tmp = 0;
+      ROS_INFO("Bitte eine Zahl eingeben");
     }
-  } while (tmp == 0);
+  } while (!valid);
   return tmp;
 }
 

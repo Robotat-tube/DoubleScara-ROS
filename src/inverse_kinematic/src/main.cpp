@@ -24,11 +24,7 @@ class Inverse_Class{
         sub_ = nh_.subscribe("/set_pose", 1000, &Inverse_Class::callback,this);
 
         //PARAMETER AUSLESEN UND GEOMETRIE ZUWEISEN!!!!!
-
-
       }
-
-
 
       void callback(const geometry_msgs::Pose::ConstPtr& sub_msg){
             //BUGFIXING: - atan() returns rad in range [-pi/2,+pi/2] -> OK FUER UNS?????
@@ -41,8 +37,6 @@ class Inverse_Class{
           Ex_ = sub_msg->position.x;
           Ey_ = sub_msg->position.y;
           Ez_ = sub_msg->position.z;
-
-
 
           //Equation 3-3
             l04_    = calc_l04();
@@ -63,14 +57,12 @@ class Inverse_Class{
             theta2_ = lintoangle();
 
           //pass calculated angles in msg
-            pub_msgs_.position.x = theta0_;
-            pub_msgs_.position.y = theta1_;
-            pub_msgs_.position.z = theta2_; 
+            pub_msgs_.x = theta0_;
+            pub_msgs_.y = theta1_;
+            pub_msgs_.z = theta2_; 
 
             pub_.publish(pub_msgs_);
       } //Callback-Ende
-
-
 
     float calc_l04(){
         return sqrt((Ex_ * Ex_)*(Ey_ * Ey_));
@@ -85,7 +77,6 @@ class Inverse_Class{
         return (beta_ - alpha_);
     }
 
-
     float calc_l14(){
         return sqrt( ((L0_-Ex_)*(L0_-Ex_)) + (Ey_*Ey_));
     }
@@ -99,45 +90,32 @@ class Inverse_Class{
         return (delta_ - gamma_);
     }
 
-
     float lintoangle(){
       return( (Ez_/(2*M_PI*r_))*360 );
     }
-
 
     protected:
       ros::NodeHandle nh_;
       ros::Publisher pub_;
       ros::Subscriber sub_;
-      geometry_msgs::Pose pub_msgs_;
+      geometry_msgs::Vector3 pub_msgs_;
 
     //Arme:
       float L1_, L2_;
       float L3_, L4_;
-
     //Base:
       float L0_;
-
     //Circle aprox of gear on Z-Axis
       float r_;
-
     //"Direkter Weg:"
       float l04_, l14_;
-
     //Winkel
       float alpha_, beta_, theta0_;
       float gamma_, delta_,theta1_;
       float theta2_;
-
     //Input:
       float Ex_, Ey_, Ez_;
-
-
 };//End of class Inverse_Class
-
-
-
-
 
 //-----------------------//
 //--- Main processing ---//

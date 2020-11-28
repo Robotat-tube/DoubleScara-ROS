@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(user_interface)
+project(user_interface_scara)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -102,12 +102,12 @@ find_package(catkin REQUIRED COMPONENTS
 ## LIBRARIES: libraries you create in this project that dependent projects also need
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
-#catkin_package(
+catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES user_interface
 #  CATKIN_DEPENDS roscpp rospy std_msgs
 #  DEPENDS system_lib
-#)
+)
 
 ###########
 ## Build ##
@@ -150,8 +150,8 @@ include_directories(
 #   ${catkin_LIBRARIES}
 # )
 
-add_executable(user_interface src/user_interface.cpp)
-target_link_libraries(user_interface ${catkin_LIBRARIES})
+add_executable(user_interface_scara src/user_interface_scara.cpp)
+target_link_libraries(user_interface_scara ${catkin_LIBRARIES})
 
 #############
 ## Install ##
