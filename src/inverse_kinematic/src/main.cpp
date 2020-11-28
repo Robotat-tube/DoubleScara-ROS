@@ -25,7 +25,7 @@ class Inverse_Class{
 
         //PARAMETER AUSLESEN UND GEOMETRIE ZUWEISEN!!!!!
 
-        
+
       }
 
 
@@ -33,41 +33,41 @@ class Inverse_Class{
       void callback(const geometry_msgs::Pose::ConstPtr& sub_msg){
             //BUGFIXING: - atan() returns rad in range [-pi/2,+pi/2] -> OK FUER UNS?????
             //           - acos() returns rad in range [-1,+1] -> OK FUER UNS?????
-            //           - Funktionsreihenfolge beachten! 
+            //           - Funktionsreihenfolge beachten!
             //ACHSEN KOORDINATEN 0|0 AUFPASSEN! LIEGT DERZEIT IN MOTOR-ACHSE Links
 
-          //sub_msg verarbeiten und Ex_ Ey_ Ez_ auslesen 
+          //sub_msg verarbeiten und Ex_ Ey_ Ez_ auslesen
 
-          Ex_ = sub_msg->position.x; 
+          Ex_ = sub_msg->position.x;
           Ey_ = sub_msg->position.y;
           Ez_ = sub_msg->position.z;
 
-           
+
 
           //Equation 3-3
             l04_    = calc_l04();
             alpha_  = calc_alpha();
             beta_   = calc_beta();
-            theta0_ = calc_theta0(); 
+            theta0_ = calc_theta0();
           //Equation 3-4
             //Winkel werden noch auf die "andere seite gelegt" -> Equation 3-4 noch 180-Ergebnis
             //180-Ergebnis aufgrund der Skizze in Teams
             l14_    = calc_l14();
             gamma_  = 180 - calc_gamma();
             delta_  = 180 - calc_delta();
-            theta1_ = calc_theta1(); 
+            theta1_ = calc_theta1();
 
           // Z-Axis
-          // Circumference -> 2*PI*r 
+          // Circumference -> 2*PI*r
 
             theta2_ = lintoangle();
 
           //pass calculated angles in msg
-            pub_msgs_.x = theta0_;
-            pub_msgs_.y = theta1_;
-            pub_msgs_.z = theta2_; 
+            pub_msgs_.position.x = theta0_;
+            pub_msgs_.position.y = theta1_;
+            pub_msgs_.position.z = theta2_; 
 
-            pub_.publish(pub_msgs_); 
+            pub_.publish(pub_msgs_);
       } //Callback-Ende
 
 
@@ -76,13 +76,13 @@ class Inverse_Class{
         return sqrt((Ex_ * Ex_)*(Ey_ * Ey_));
     }
     float calc_alpha(){
-        return (90 - radtodegree(atan((Ey_/Ex_))));  
+        return (90 - radtodegree(atan((Ey_/Ex_))));
     }
     float calc_beta(){
         return radtodegree( (L1_*L1_ - L4_*L4_ + l04_*l04_)/(2*L1_*l04_) );
     }
     float calc_theta0(){
-        return (beta_ - alpha_); 
+        return (beta_ - alpha_);
     }
 
 
@@ -106,31 +106,31 @@ class Inverse_Class{
 
 
     protected:
-      ros::NodeHandle nh_; 
+      ros::NodeHandle nh_;
       ros::Publisher pub_;
-      ros::Subscriber sub_; 
-      geometry_msgs::Pose pub_msgs_; 
+      ros::Subscriber sub_;
+      geometry_msgs::Pose pub_msgs_;
 
-    //Arme: 
+    //Arme:
       float L1_, L2_;
       float L3_, L4_;
-     
+
     //Base:
       float L0_;
-    
+
     //Circle aprox of gear on Z-Axis
-      float r_; 
+      float r_;
 
     //"Direkter Weg:"
       float l04_, l14_;
-      
+
     //Winkel
       float alpha_, beta_, theta0_;
-      float gamma_, delta_,theta1_; 
-      float theta2_; 
-    
+      float gamma_, delta_,theta1_;
+      float theta2_;
+
     //Input:
-      float Ex_, Ey_, Ez_; 
+      float Ex_, Ey_, Ez_;
 
 
 };//End of class Inverse_Class
@@ -148,9 +148,7 @@ int main(int argc, char **argv){
 
     ros::init(argc, argv, "inverse_kinematics");
     //Create the Object
-    Inverse_Class inverese_double_scara;     
+    Inverse_Class inverese_double_scara;
     ros::spin();
-    //everything is fine :) 
+    //everything is fine :)
 }
-
-
