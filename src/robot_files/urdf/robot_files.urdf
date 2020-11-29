@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-1-g15f4949  Build Version: 1.6.7594.29634
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="robot_files" xmlns:xacro="http://ros.org/wiki/xacro">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-0.0273412617926702 0.00973779003041192 0.269390971296453"
+        rpy="0 0 0" />
+      <mass
+        value="0.345685675411138" />
+      <inertia
+        ixx="0.00269781163997009"
+        ixy="4.13994096992127E-19"
+        ixz="-1.5919139763203E-05"
+        iyy="0.00155787385731724"
+        iyz="-4.46098354104601E-20"
+        izz="0.00396172115822159" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_files/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 0.184313725490196 0.215686274509804 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_files/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="Left_Wing">
+    <inertial>
+      <origin
+        xyz="-3.60822483003176E-16 0.0177622004237888 0.0212396980830702"
+        rpy="0 0 0" />
+      <mass
+        value="0.0210754932260796" />
+      <inertia
+        ixx="1.15034506207966E-05"
+        ixy="-1.53193849444821E-21"
+        ixz="-3.90429249125029E-22"
+        iyy="2.53731387290979E-06"
+        iyz="-2.18289204446167E-06"
+        izz="1.05814121144271E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_files/meshes/Left_Wing.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.694117647058824 0.0980392156862745 0.0980392156862745 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_files/meshes/Left_Wing.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Left_Shoulder"
+    type="continuous">
+    <origin
+      xyz="-0.0312634311502634 -0.250000000000026 0.0527377900304119"
+      rpy="1.57079632679489 -1.55108057106202 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="Left_Wing" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="Left_Arm">
+    <inertial>
+      <origin
+        xyz="2.83043660506133E-05 0.0269236461105274 0.00454936406266349"
+        rpy="0 0 0" />
+      <mass
+        value="0.00844565667479036" />
+      <inertia
+        ixx="3.31938381283916E-06"
+        ixy="-3.27843276110383E-09"
+        ixz="-1.10272807425882E-11"
+        iyy="2.00880267547296E-07"
+        iyz="-1.04893571418753E-08"
+        izz="3.4060321662019E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_files/meshes/Left_Arm.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 0.937254901960784 0.137254901960784 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_files/meshes/Left_Arm.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Left_Elbow"
+    type="continuous">
+    <origin
+      xyz="0 0.06 0.0328000000000001"
+      rpy="0 0 0.762967724097882" />
+    <parent
+      link="Left_Wing" />
+    <child
+      link="Left_Arm" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="Right_Wing">
+    <inertial>
+      <origin
+        xyz="5.55111512312578E-17 0.0212291637504658 0.0136228383359162"
+        rpy="0 0 0" />
+      <mass
+        value="0.0176121386529091" />
+      <inertia
+        ixx="8.82354440495519E-06"
+        ixy="-2.1043474783349E-21"
+        ixz="-3.17637355220363E-22"
+        iyy="1.17294112027453E-06"
+        iyz="-9.14312461870988E-07"
+        izz="8.98207195660158E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_files/meshes/Right_Wing.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.694117647058824 0.0980392156862745 0.0980392156862745 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_files/meshes/Right_Wing.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Right_Shoulder"
+    type="continuous">
+    <origin
+      xyz="-0.0312634311502634 -0.250000000000026 -0.0332622099695881"
+      rpy="1.5707963267949 -1.4632220790184 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="Right_Wing" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+  <link
+    name="Right_Arm">
+    <inertial>
+      <origin
+        xyz="1.96173608062872E-05 0.0186604030775354 0.0208489773241672"
+        rpy="0 0 0" />
+      <mass
+        value="0.0123490093632538" />
+      <inertia
+        ixx="6.09126850412204E-06"
+        ixy="-5.38628761660976E-09"
+        ixz="-1.08175219118207E-09"
+        iyy="9.67735934644047E-07"
+        iyz="-1.02898305912417E-06"
+        izz="5.54491612592453E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_files/meshes/Right_Arm.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 0.937254901960784 0.137254901960784 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_files/meshes/Right_Arm.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="Right_Elbow"
+    type="continuous">
+    <origin
+      xyz="0 0.0600000000000001 0.0218"
+      rpy="0 0 -0.62527281558488" />
+    <parent
+      link="Right_Wing" />
+    <child
+      link="Right_Arm" />
+    <axis
+      xyz="0 0 1" />
+  </joint>
+</robot>
