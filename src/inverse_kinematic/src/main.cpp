@@ -24,6 +24,15 @@ class Inverse_Class{
         sub_ = nh_.subscribe("/set_pose", 1000, &Inverse_Class::callback,this);
 
         //PARAMETER AUSLESEN UND GEOMETRIE ZUWEISEN!!!!!
+        //Arme:
+        L1_ = 10;
+      	L2_ = 10;
+      	L3_ = 10;
+      	L4_ = 10;
+        //Base:
+        L0_ = 20;
+        //Circle aprox of gear on Z-Axis
+        r_ = 1;
       }
 
       void callback(const geometry_msgs::Pose::ConstPtr& sub_msg){
@@ -59,7 +68,7 @@ class Inverse_Class{
           //pass calculated angles in msg
             pub_msgs_.x = theta0_;
             pub_msgs_.y = theta1_;
-            pub_msgs_.z = theta2_; 
+            pub_msgs_.z = theta2_;
 
             pub_.publish(pub_msgs_);
       } //Callback-Ende

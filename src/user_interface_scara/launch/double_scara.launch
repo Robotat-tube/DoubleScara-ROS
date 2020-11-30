@@ -1,11 +1,11 @@
 <launch>
 
   <arg name="gui" default="true" />
-  <arg name="rvizconfig" default="$(find user_interface)/rviz/mech.rviz" />
+  <arg name="rvizconfig" default="$(find user_interface_scara)/rviz/mech.rviz" />
   <arg name="source_list" default="[pup_angles]"/>
 
   <param name="robot_description"
-    command="xacro --inorder '$(find robot_files)/urdf/doubleScara.urdf'" />
+    command="xacro --inorder '$(find robot_files)/urdf/robot_files.urdf'" />
   <param name="use_gui" value="$(arg gui)"/>
 
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
@@ -16,5 +16,7 @@
   <node name="user_interface_scara" pkg="user_interface_scara" type="user_interface_scara" output="screen"
         launch-prefix="gnome-terminal --command" />
   <node name="inverse_kinematic" pkg="MMR_Mech_Double_Scara_Invers" type="inverse_kinematic" />
+  <node name="forward_kinematics" pkg="forward_kinematics" type="forward_kinematics" />
+  <node name="robot_publish" pkg="robot_publish" type="robot_publish" />
 
 </launch>

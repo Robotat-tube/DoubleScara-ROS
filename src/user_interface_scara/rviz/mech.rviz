@@ -63,28 +63,28 @@ Visualization Manager:
         Expand Joint Details: false
         Expand Link Details: false
         Expand Tree: false
+        Left_Arm:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        Left_Wing:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         Link Tree Style: Links in Alphabetic Order
-        arm1_link:
+        Right_Arm:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        arm2_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        arm3_link:
+        Right_Wing:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
         base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        shaft_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -100,15 +100,15 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
-        arm1_link:
+        Left_Arm:
           Value: true
-        arm2_link:
+        Left_Wing:
           Value: true
-        arm3_link:
+        Right_Arm:
+          Value: true
+        Right_Wing:
           Value: true
         base_link:
-          Value: true
-        shaft_link:
           Value: true
       Marker Scale: 0.5
       Name: TF
@@ -117,11 +117,12 @@ Visualization Manager:
       Show Names: true
       Tree:
         base_link:
-          arm1_link:
-            arm2_link:
-              arm3_link:
-                shaft_link:
-                  {}
+          Left_Wing:
+            Left_Arm:
+              {}
+          Right_Wing:
+            Right_Arm:
+              {}
       Update Interval: 0
       Value: true
   Enabled: true
@@ -152,7 +153,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 4.486889839172363
+      Distance: 0.7493812441825867
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -192,6 +193,26 @@ Visualization Manager:
         Target Frame: <Fixed Frame>
         Value: Orbit (rviz)
         Yaw: 0.5135819911956787
+      - Class: rviz/Orbit
+        Distance: 0.7493812441825867
+        Enable Stereo Rendering:
+          Stereo Eye Separation: 0.05999999865889549
+          Stereo Focal Distance: 1
+          Swap Stereo Eyes: false
+          Value: false
+        Focal Point:
+          X: 0
+          Y: 0
+          Z: 0
+        Focal Shape Fixed Size: true
+        Focal Shape Size: 0.05000000074505806
+        Invert Z Axis: false
+        Name: Orbit
+        Near Clip Distance: 0.009999999776482582
+        Pitch: 0.6953970193862915
+        Target Frame: <Fixed Frame>
+        Value: Orbit (rviz)
+        Yaw: 0.5135819911956787
 Window Geometry:
   Displays:
     collapsed: false
@@ -209,4 +230,4 @@ Window Geometry:
     collapsed: false
   Width: 1216
   X: 2502
-  Y: 494
+  Y: 464

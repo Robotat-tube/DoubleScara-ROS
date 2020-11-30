@@ -3,8 +3,38 @@
 #include "string"
 #include "geometry_msgs/Vector3.h"
 #include "geometry_msgs/Pose.h"
+#include <thread>
+#include <chrono>
 
-int get_int()
+
+class UserInterface
+{
+public:
+  UserInterface();
+  int get_int();
+  float get_float();
+  geometry_msgs::Pose pose;
+  geometry_msgs::Vector3 winkel;
+  ros::Publisher set_pose_pub;
+  ros::Publisher set_angles_pub;
+  ros::Subscriber calc_pose_sub;
+  ros::Subscriber calc_angles_sub;
+private:
+  void calc_pose_callback(const geometry_msgs::Pose& pose);
+  void calc_angles_callback(const geometry_msgs::Vector3& angles);
+  ros::NodeHandle n;
+};
+
+UserInterface::UserInterface()
+{
+  set_pose_pub = n.advertise<geometry_msgs::Pose>("set_pose", 1);
+  set_angles_pub = n.advertise<geometry_msgs::Vector3>("set_angles", 1);
+  calc_pose_sub = n.subscribe("/calc_pose", 100, &UserInterface::calc_pose_callback, this);
+  calc_angles_sub = n.subscribe("/calc_angles", 100, &UserInterface::calc_angles_callback, this);
+}
+
+
+int UserInterface::get_int()
 {
   std::string input;
   int tmp = 0;
@@ -26,7 +56,7 @@ int get_int()
   return tmp;
 }
 
-int get_float()
+float UserInterface::get_float()
 {
   std::string input;
   float tmp = 0;
@@ -38,8 +68,6 @@ int get_float()
       std::getline(std::cin, input);
       tmp = std::stof(input);
       valid = true;
-      std::cout << "Test" << std::endl;
-      ROS_INFO("Bitte eine Zahl eingeben");
     }
     catch (std::invalid_argument const&)
     {
@@ -49,47 +77,58 @@ int get_float()
   return tmp;
 }
 
+void UserInterface::calc_pose_callback(const geometry_msgs::Pose& pose)
+{
+  std::printf("\nCallculated Pose is: X: %.2f  Y: %.2f  Z: %.2f", pose.position.x,
+            pose.position.y, pose.position.z);
+}
+
+void UserInterface::calc_angles_callback(const geometry_msgs::Vector3& angles)
+{
+  ROS_INFO("Got calculated Angles");
+}
+
+void run_ros()
+{
+  ros::spin();
+}
+
+
 int main(int argc, char **argv)
 {
-  int mode = 0;
-  geometry_msgs::Pose pose;
-  geometry_msgs::Vector3 winkel;
-
   ros::init(argc, argv, "user_interface");
+  int mode = 0;
+  UserInterface user_interface;
+  std::thread t1(run_ros);
 
-  ros::NodeHandle n;
-
-  ros::Publisher set_pose_pub = n.advertise<geometry_msgs::Pose>("set_pose", 1);
-  ros::Publisher set_angles_pub = n.advertise<geometry_msgs::Vector3>("set_angles", 1);
   while(1){
     do
     {
       std::cout << "Bitte wählen Sie eine Möglichkeit aus:" << std::endl;
       std::cout << "| 1: TCP Pose eingeben\n| 2: Motoren Winkel eingeben\n| 3: Beenden" << std::endl;
 
-      mode = get_int();
+      mode = user_interface.get_int();
 
-  } while (!(mode == 1 || mode == 2 || mode == 3));
-
+    } while (!(mode == 1 || mode == 2 || mode == 3));
 
     switch (mode){
       case 1:
         std::cout << "Pose eingeben: x y z\nX: ";
-        pose.position.x = get_float();
+        user_interface.pose.position.x = user_interface.get_float();
         std::cout << "Y: ";
-        pose.position.y = get_float();
+        user_interface.pose.position.y = user_interface.get_float();
         std::cout << "Z: ";
-        pose.position.z = get_float();
-        set_pose_pub.publish(pose);
+        user_interface.pose.position.z = user_interface.get_float();
+        user_interface.set_pose_pub.publish(user_interface.pose);
         break;
       case 2:
         std::cout << "Motor Winkel eingeben: (in Grad°)\nMotor1: ";
-        winkel.x = get_float();
+        user_interface.winkel.x = user_interface.get_float();
         std::cout << "Motor2: ";
-        winkel.y = get_float();
+        user_interface.winkel.y = user_interface.get_float();
         std::cout << "Motor3: ";
-        winkel.z = get_float();
-        set_angles_pub.publish(winkel);
+        user_interface.winkel.z = user_interface.get_float();
+        user_interface.set_angles_pub.publish(user_interface.winkel);
         break;
       case 3:
         return 0;
@@ -98,6 +137,8 @@ int main(int argc, char **argv)
       default:
         std::cout << "Wie hast du es geschaft hierher zu kommen??????" << std::endl;
         break;
+
+    std::this_thread::sleep_for(std::chrono::nanoseconds(1000));
     }
   }
 }
