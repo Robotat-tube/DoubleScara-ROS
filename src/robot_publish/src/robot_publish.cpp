@@ -14,7 +14,7 @@ public:
     set_angles_sub = n.subscribe("/set_angles", 1000, &RobotPublish::set_angles_callback, this);
     calc_pose_sub = n.subscribe("/calc_pose", 1000, &RobotPublish::calc_pose_callback, this);
     calc_angles_sub = n.subscribe("/calc_angles", 1000, &RobotPublish::calc_angles_callback, this);
-    pup_angles_pup  = n.advertise<sensor_msgs::JointState>("pub_angles", 100);
+    pup_angles_pup  = n.advertise<sensor_msgs::JointState>("pup_angles", 100);
     state.position.resize(5);
     state.name.resize(5);
     state.name[0] = "Left_Shoulder";
