@@ -5,6 +5,7 @@
 #include "geometry_msgs/Pose.h"
 #include <thread>
 #include <chrono>
+#include <math.h>
 
 
 class UserInterface
@@ -93,6 +94,14 @@ void run_ros()
   ros::spin();
 }
 
+float grad_to_rad(float grad)
+{
+  float rad = grad * (M_PI/180);
+  if (rad > 3.14) rad = -(6.28 - rad);
+  std::cout << "rad: " << std::to_string(rad) << std::endl;
+  return rad;
+}
+
 
 int main(int argc, char **argv)
 {
@@ -123,11 +132,11 @@ int main(int argc, char **argv)
         break;
       case 2:
         std::cout << "Motor Winkel eingeben: (in Grad°)\nMotor1: ";
-        user_interface.winkel.x = user_interface.get_float();
+        user_interface.winkel.x = grad_to_rad(user_interface.get_float());
         std::cout << "Motor2: ";
-        user_interface.winkel.y = user_interface.get_float();
+        user_interface.winkel.y = grad_to_rad(user_interface.get_float());
         std::cout << "Motor3: ";
-        user_interface.winkel.z = user_interface.get_float();
+        user_interface.winkel.z = grad_to_rad(user_interface.get_float());
         user_interface.set_angles_pub.publish(user_interface.winkel);
         break;
       case 3:

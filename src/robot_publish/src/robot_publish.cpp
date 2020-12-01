@@ -37,6 +37,7 @@ private:
   void set_angles_callback(const geometry_msgs::Vector3 &angles);
   void calc_pose_callback(const geometry_msgs::Pose &pose);
   void calc_angles_callback(const geometry_msgs::Vector3 &angles);
+  float grad_to_rad(float grad);
 };
 
 void RobotPublish::set_pose_callback(const geometry_msgs::Pose &pose)
@@ -52,7 +53,7 @@ void RobotPublish::set_angles_callback(const geometry_msgs::Vector3 &angles)
   current_angles.y = angles.y;
   current_angles.z = angles.z;
   // TODO calc angles for imaginary motors an robot elbows and publish to pup_angles
-  state.position[0] = current_angles.y;
+  state.position[0] = current_angles.x;
   state.position[2] = current_angles.y;
   state.position[4] = current_angles.z;
   pup_angles_pup.publish(state);
@@ -67,14 +68,22 @@ void RobotPublish::calc_pose_callback(const geometry_msgs::Pose &pose)
 
 void RobotPublish::calc_angles_callback(const geometry_msgs::Vector3 &angles)
 {
-  current_angles.x = angles.x;
-  current_angles.y = angles.y;
-  current_angles.z = angles.z;
+  current_angles.x = grad_to_rad(angles.x);
+  current_angles.y = grad_to_rad(angles.y);
+  current_angles.z = grad_to_rad(angles.z);
   // TODO calc angles for imaginary motors an robot elbows and publish to pup_angles
   state.position[0] = current_angles.y;
   state.position[2] = current_angles.y;
   state.position[4] = current_angles.z;
   pup_angles_pup.publish(state);
+}
+
+float RobotPublish::grad_to_rad(float grad)
+{
+  float rad = grad * (M_PI/180);
+  if (rad > 3.14) rad = -(6.28 - rad);
+  std::cout << "rad: " << std::to_string(rad) << std::endl;
+  return rad;
 }
 
 
