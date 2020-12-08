@@ -1,6 +1,6 @@
 #include "ros/ros.h"
 #include <geometry_msgs/Pose.h>
-#include <geometry_msgs/Vector3.h>
+#include <std_msgs/Float64MultiArray.h>
 #include <math.h>
 
 class Forward_Kinematics_Class{
@@ -11,7 +11,7 @@ public:
     pub_ = nh_.advertise<geometry_msgs::Pose>("/calc_pose", 1);
 
     //Topic you want to subscribe to
-    sub_ = nh_.subscribe("/set_angles", 1000, &Forward_Kinematics_Class::callback_subscriber,this);
+    sub_ = nh_.subscribe("/set_angles_array", 1000, &Forward_Kinematics_Class::callback_subscriber,this);
 
     //PARAMETER AUSLESEN UND GEOMETRIE ZUWEISEN!!!!!
   	xo1 = -10;
@@ -24,10 +24,10 @@ public:
   	L4 = 10;
   }
 
-  void callback_subscriber(const geometry_msgs::Vector3& sub_msg){
+  void callback_subscriber(const std_msgs::Float64MultiArray& sub_msg){ 
     //sub_msg verarbeiten und leftMotor, rightMotor auslesen
-    float leftMotor = sub_msg.x;
-    float rightMotor = sub_msg.y;
+    float leftMotor = sub_msg.data[0];
+    float rightMotor = sub_msg.data[1];
 
     float xa, ya, xb, yb, h, phi, delta, xc, yc;
     xa = xo1 + L2*cos(leftMotor*M_PI/180); // left motor
