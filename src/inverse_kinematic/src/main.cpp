@@ -1,7 +1,7 @@
 
 #include "ros/ros.h"
 #include <geometry_msgs/Pose.h>
-#include <geometry_msgs/Vector3.h>
+#include <std_msgs/Float64MultiArray.h>
 #include <cmath>
 
 float degreetorad(float degree){
@@ -18,7 +18,7 @@ class Inverse_Class{
       Inverse_Class()
       {
         //Topic you want to publish
-        pub_ = nh_.advertise<geometry_msgs::Vector3>("/calc_angles", 1);
+        pub_ = nh_.advertise<std_msgs::Float64MultiArray>("/calc_angles_array", 1);
 
         //Topic you want to subscribe
         sub_ = nh_.subscribe("/set_pose", 1000, &Inverse_Class::callback,this);
@@ -66,9 +66,12 @@ class Inverse_Class{
             theta2_ = lintoangle();
 
           //pass calculated angles in msg
-            pub_msgs_.x = theta0_;
-            pub_msgs_.y = theta1_;
-            pub_msgs_.z = theta2_;
+            pub_msgs_.data.resize(5);
+            pub_msgs_.data[0] = theta0_;
+            pub_msgs_.data[1] = theta1_;
+            pub_msgs_.data[2] = theta2_;
+            pub_msgs_.data[3] = 0; //Winkel für simulation
+            pub_msgs_.data[4] = 0; //Winkel für simulation
 
             pub_.publish(pub_msgs_);
       } //Callback-Ende
@@ -107,7 +110,7 @@ class Inverse_Class{
       ros::NodeHandle nh_;
       ros::Publisher pub_;
       ros::Subscriber sub_;
-      geometry_msgs::Vector3 pub_msgs_;
+      std_msgs::Float64MultiArray pub_msgs_;
 
     //Arme:
       float L1_, L2_;
