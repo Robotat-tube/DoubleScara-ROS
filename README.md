@@ -25,3 +25,6 @@ http://wiki.ros.org/rosserial_server
 .
 .
 
+Note: The order of Angles in the used std_msgs.Float64MultiArray are
+- 0-2 represents angles Theta0 - Theta2 
+- 3-4 represents the resulting angles in the forearm of the robot. They are necessary for the simulation 
