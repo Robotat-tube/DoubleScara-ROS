@@ -1,11 +1,21 @@
 #include "ros/ros.h"
-#include "std_msgs/String.h"
 #include "string"
-#include "geometry_msgs/Vector3.h"
-#include "geometry_msgs/Pose.h"
 #include <thread>
 #include <chrono>
 #include <math.h>
+
+
+//Old Msgs Types
+//#include "std_msgs/String.h"
+//#include "geometry_msgs/Vector3.h"
+//#include "geometry_msgs/Pose.h"
+
+//new Msgs Types
+#include <std_msgs/Float64MultiArray.h>
+#include "geometry_msgs/Pose.h"
+#include "std_msgs/String.h"
+#include "std_msgs/Bool.h"
+
 
 
 class UserInterface
@@ -15,23 +25,24 @@ public:
   int get_int();
   float get_float();
   geometry_msgs::Pose pose;
-  geometry_msgs::Vector3 winkel;
+  std_msgs::Float64MultiArray winkel;
   ros::Publisher set_pose_pub;
   ros::Publisher set_angles_pub;
   ros::Subscriber calc_pose_sub;
   ros::Subscriber calc_angles_sub;
 private:
   void calc_pose_callback(const geometry_msgs::Pose& pose);
-  void calc_angles_callback(const geometry_msgs::Vector3& angles);
+  void calc_angles_callback(const std_msgs::Float64MultiArray& angles_array);
   ros::NodeHandle n;
 };
 
 UserInterface::UserInterface()
 {
   set_pose_pub = n.advertise<geometry_msgs::Pose>("set_pose", 1);
-  set_angles_pub = n.advertise<geometry_msgs::Vector3>("set_angles", 1);
+  set_angles_pub = n.advertise<std_msgs::Float64MultiArray>("set_angles_array", 1);
   calc_pose_sub = n.subscribe("/calc_pose", 100, &UserInterface::calc_pose_callback, this);
-  calc_angles_sub = n.subscribe("/calc_angles", 100, &UserInterface::calc_angles_callback, this);
+  calc_angles_sub = n.subscribe("/calc_angles_array", 100, &UserInterface::calc_angles_callback, this);
+  winkel.data.resize(5);
 }
 
 
@@ -84,7 +95,7 @@ void UserInterface::calc_pose_callback(const geometry_msgs::Pose& pose)
             pose.position.y, pose.position.z);
 }
 
-void UserInterface::calc_angles_callback(const geometry_msgs::Vector3& angles)
+void UserInterface::calc_angles_callback(const std_msgs::Float64MultiArray& angles_array)
 {
   ROS_INFO("Got calculated Angles");
 }
@@ -132,11 +143,11 @@ int main(int argc, char **argv)
         break;
       case 2:
         std::cout << "Motor Winkel eingeben: (in Grad°)\nMotor1: ";
-        user_interface.winkel.x = grad_to_rad(user_interface.get_float());
+        user_interface.winkel.data[0] = grad_to_rad(user_interface.get_float());
         std::cout << "Motor2: ";
-        user_interface.winkel.y = grad_to_rad(user_interface.get_float());
+        user_interface.winkel.data[1] = grad_to_rad(user_interface.get_float());
         std::cout << "Motor3: ";
-        user_interface.winkel.z = grad_to_rad(user_interface.get_float());
+        user_interface.winkel.data[2] = grad_to_rad(user_interface.get_float());
         user_interface.set_angles_pub.publish(user_interface.winkel);
         break;
       case 3:
