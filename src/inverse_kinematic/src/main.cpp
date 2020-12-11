@@ -25,14 +25,14 @@ class Inverse_Class{
 
         //PARAMETER AUSLESEN UND GEOMETRIE ZUWEISEN!!!!!
         //Arme:
-        L1_ = 10;
-      	L2_ = 10;
-      	L3_ = 10;
-      	L4_ = 10;
+        L1_ = 0.1; //in Meter
+      	L2_ = 0.1; //in Meter
+      	//L3_ = 10;
+      	//L4_ = 10;
         //Base:
-        L0_ = 20;
+        L0_ = 0.2; //in Meter
         //Circle aprox of gear on Z-Axis
-        r_ = 1;
+        r_ = 0,014; //in Meter
       }
 
       void callback(const geometry_msgs::Pose::ConstPtr& sub_msg){
@@ -68,11 +68,9 @@ class Inverse_Class{
 
 
           //Simulationswinkel:
-            theta3_ = 0; 
-            theta4_ = 0; 
+            theta3_ = calc_theta3(); 
+            theta4_ = calc_theta4(); 
             
-
-
 
           //pass calculated angles in msg
             pub_msgs_.data.resize(5);
@@ -114,6 +112,17 @@ class Inverse_Class{
     float lintoangle(){
       return( (Ez_/(2*M_PI*r_))*360 );
     }
+
+    float calc_theta3(){
+      //Ermittelt ueber den Kosinussatz
+      return (radtodegree(acos(  (l04_*l04_)-(L2_*L2_)-(L1_*L1_)+(2*L2_*L1_)  )));
+    }
+    
+    float calc_theta4(){
+      //Ermittelt ueber den Kosinussatz
+      return (radtodegree(acos(  (l14_*l14_)-(L1_*L1_)-(L2_*L2_)+(2*L1_*L2_)  )));
+    }
+
 
     protected:
       ros::NodeHandle nh_;
