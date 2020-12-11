@@ -25,12 +25,12 @@ class Inverse_Class{
 
         //PARAMETER AUSLESEN UND GEOMETRIE ZUWEISEN!!!!!
         //Arme:
-        L1_ = 0.1; //in Meter
-      	L2_ = 0.1; //in Meter
+        L1_ = 0.06; //in Meter
+      	L2_ = 0.06; //in Meter
       	//L3_ = 10;
       	//L4_ = 10;
         //Base:
-        L0_ = 0.2; //in Meter
+        L0_ = 0.114; //in Meter
         //Circle aprox of gear on Z-Axis
         r_ = 0,014; //in Meter
       }

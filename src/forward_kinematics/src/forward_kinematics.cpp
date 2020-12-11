@@ -24,8 +24,8 @@ public:
 
     //PARAMETER AUSLESEN UND GEOMETRIE ZUWEISEN!!!!!
 	L0 = 0.114; //in Meter
-	L1 = 0.6;
-	L2 = 0.6;
+	L1 = 0.06;
+	L2 = 0.06;
 	z_motor_radius = 0.014;
   }
 
@@ -41,10 +41,10 @@ public:
 
 
     float xa, ya, xb, yb, h, phi, delta, xc, yc, left_arm_angle, right_arm_angle;
-    xa = -L1*sin(radtodegree(leftMotor)); // left motor
-    ya = L1*cos(radtodegree(leftMotor));
-    xb = L1*sin(radtodegree(rightMotor)); // right motor
-    yb = L1*sin(radtodegree(rightMotor));
+    xa = -L1*sin(degreetorad(leftMotor)); // left motor
+    ya = L1*cos(degreetorad(leftMotor));
+    xb = L1*sin(degreetorad(rightMotor)) + L0; // right motor
+    yb = L1*cos(degreetorad(rightMotor));
 
     h = sqrt(pow(xb - xa, 2) + pow(yb - ya, 2));
     phi = atan2((yb - ya),(xb - xa));
