@@ -3,6 +3,15 @@
 #include <std_msgs/Float64MultiArray.h>
 #include <math.h>
 
+float degreetorad(float degree){
+    return (degree * (M_PI/180));
+}
+
+float radtodegree(float rad){
+    return (rad * (180/M_PI));
+}
+
+
 class Forward_Kinematics_Class{
 public:
   Forward_Kinematics_Class()
@@ -14,36 +23,41 @@ public:
     sub_ = nh_.subscribe("/set_angles_array", 1000, &Forward_Kinematics_Class::callback_subscriber,this);
 
     //PARAMETER AUSLESEN UND GEOMETRIE ZUWEISEN!!!!!
-  	xo1 = -10;
-  	yo1 = 0;
-  	xo2 = 10;
-  	yo2 = 0;
-  	L1 = 10;
-  	L2 = 10;
-  	L3 = 10;
-  	L4 = 10;
+	L0 = 0.114; //in Meter
+	L1 = 0.6;
+	L2 = 0.6;
+	z_motor_radius = 0.014;
   }
+
+   float angleToLine(float z_motor_angle){
+      return( degreetorad(z_motor_angle)*z_motor_radius );
+   }
 
   void callback_subscriber(const std_msgs::Float64MultiArray& sub_msg){ 
     //sub_msg verarbeiten und leftMotor, rightMotor auslesen
     float leftMotor = sub_msg.data[0];
     float rightMotor = sub_msg.data[1];
+    float zMotor = sub_msg.data[2];
 
-    float xa, ya, xb, yb, h, phi, delta, xc, yc;
-    xa = xo1 + L2*cos(leftMotor*M_PI/180); // left motor
-    ya = yo1 + L2*sin(leftMotor*M_PI/180);
-    xb = xo2 + L1*cos(rightMotor*M_PI/180); // right motor
-    yb = yo2 + L1*sin(rightMotor*M_PI/180);
+
+    float xa, ya, xb, yb, h, phi, delta, xc, yc, left_arm_angle, right_arm_angle;
+    xa = -L1*sin(radtodegree(leftMotor)); // left motor
+    ya = L1*cos(radtodegree(leftMotor));
+    xb = L1*sin(radtodegree(rightMotor)); // right motor
+    yb = L1*sin(radtodegree(rightMotor));
 
     h = sqrt(pow(xb - xa, 2) + pow(yb - ya, 2));
     phi = atan2((yb - ya),(xb - xa));
-    delta = acos(h/(2*L4));  // Assuming L3 = L4
-    xc = xa + L4*cos(phi + delta);
-    yc = ya + L4*sin(phi + delta);
+    delta = acos(h/(2*L2));
+    xc = xa + L2*cos(phi + delta);
+    yc = ya + L2*sin(phi + delta);
 
+    // left_arm_angle = radtodegree( atan2((yc - ya),(xc - xa)) );
+    // right_arm_angle = -radtodegree( atan2((yc - yb),(xc - xb)) ); // multiplied with minus -> anticlockwise
     //pass calculated coordinates in msg
     pub_pos_msg.position.x = xc;
-    pub_pos_msg.position.y = xc;
+    pub_pos_msg.position.y = yc;
+    pub_pos_msg.position.z = angleToLine(zMotor);	
 
     pub_.publish(pub_pos_msg);
   } //Callback-Ende
@@ -55,10 +69,8 @@ protected:
   geometry_msgs::Pose pub_pos_msg;
 
   //Arme:
-  float L1, L2;
-  float L3, L4;
-  //Base:
-  float xo1, xo2, yo1, yo2;
+  float L0, L1, L2, z_motor_radius;
+
 };//End of class Forward_Kinematics_Class
 
 //-----------------------//
