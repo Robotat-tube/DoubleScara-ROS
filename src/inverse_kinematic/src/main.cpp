@@ -40,6 +40,7 @@ class Inverse_Class{
             //           - acos() returns rad in range [-1,+1] -> OK FUER UNS?????
             //           - Funktionsreihenfolge beachten!
             //ACHSEN KOORDINATEN 0|0 AUFPASSEN! LIEGT DERZEIT IN MOTOR-ACHSE Links
+            //es wird Tangens verwendet und kein atan2 - ist das ok???? Kommen da die fehler her? 
 
           //sub_msg verarbeiten und Ex_ Ey_ Ez_ auslesen
 
@@ -65,13 +66,21 @@ class Inverse_Class{
 
             theta2_ = lintoangle();
 
+
+          //Simulationswinkel:
+            theta3_ = 0; 
+            theta4_ = 0; 
+            
+
+
+
           //pass calculated angles in msg
             pub_msgs_.data.resize(5);
-            pub_msgs_.data[0] = theta0_;
-            pub_msgs_.data[1] = theta1_;
-            pub_msgs_.data[2] = theta2_;
-            pub_msgs_.data[3] = 0; //Winkel für simulation
-            pub_msgs_.data[4] = 0; //Winkel für simulation
+            pub_msgs_.data[0] = theta0_; //XY-Ebene
+            pub_msgs_.data[1] = theta1_; //XY-Ebene
+            pub_msgs_.data[2] = theta2_; //Z-Achse
+            pub_msgs_.data[3] = theta3_; //Winkel für simulation
+            pub_msgs_.data[4] = theta4_; //Winkel für simulation
 
             pub_.publish(pub_msgs_);
       } //Callback-Ende
@@ -83,7 +92,7 @@ class Inverse_Class{
         return (90 - radtodegree(atan((Ey_/Ex_))));
     }
     float calc_beta(){
-        return radtodegree( (L1_*L1_ - L4_*L4_ + l04_*l04_)/(2*L1_*l04_) );
+        return radtodegree( acos(L1_*L1_ - L2_*L2_ + l04_*l04_)/(2*L1_*l04_) );
     }
     float calc_theta0(){
         return (beta_ - alpha_);
@@ -96,7 +105,7 @@ class Inverse_Class{
         return ( 90 - radtodegree(atan(Ey_/(L0_ - Ex_))));
     }
     float calc_delta(){
-        return ( radtodegree( acos( (L2_*L2_ - L3_*L3_ + l14_*l14_)/(2*L2_*l14_))));
+        return ( radtodegree( acos( (L1_*L1_ - L2_*L2_ + l14_*l14_)/(2*L1_*l14_))));
     }
     float calc_theta1(){
         return (delta_ - gamma_);
@@ -114,7 +123,7 @@ class Inverse_Class{
 
     //Arme:
       float L1_, L2_;
-      float L3_, L4_;
+      //float L3_, L4_;
     //Base:
       float L0_;
     //Circle aprox of gear on Z-Axis
@@ -124,7 +133,7 @@ class Inverse_Class{
     //Winkel
       float alpha_, beta_, theta0_;
       float gamma_, delta_,theta1_;
-      float theta2_;
+      float theta2_, theta3_, theta4_;
     //Input:
       float Ex_, Ey_, Ez_;
 };//End of class Inverse_Class
