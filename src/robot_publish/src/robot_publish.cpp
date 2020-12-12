@@ -35,10 +35,6 @@ private:
 
 void RobotPublish::checked_angles_callback(const std_msgs::Float64MultiArray &angles)
 {
-  current_angles.x = angles.data[0];
-  current_angles.y = angles.data[1];
-  current_angles.z = angles.data[2];
-  // TODO calc angles for imaginary motors an robot elbows and publish to pup_angles
   state.position[0] = angles.data[0];
   state.position[1] = angles.data[3];
   state.position[2] = angles.data[1];
