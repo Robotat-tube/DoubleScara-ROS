@@ -15,9 +15,9 @@
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
   <node name="user_interface_scara" pkg="user_interface_scara" type="user_interface_scara" output="screen"
         launch-prefix="gnome-terminal --command" />
-  <node name="inverse_kinematic" pkg="MMR_Mech_Double_Scara_Invers" type="inverse_kinematic" />
-  <node name="forward_kinematics" pkg="forward_kinematics" type="forward_kinematics" />
-  <node name="robot_publish" pkg="robot_publish" type="robot_publish" />
-  <node name="collision_checker" pkg="collision_checker" type="collision_checker.py" />
+  <node name="inverse_kinematic" pkg="MMR_Mech_Double_Scara_Invers" type="inverse_kinematic" output="screen" />
+  <node name="forward_kinematics" pkg="forward_kinematics" type="forward_kinematics" output="screen"/>
+  <node name="robot_publish" pkg="robot_publish" type="robot_publish" output="screen" />
+  <node name="collision_checker" pkg="collision_checker" type="collision_checker.py" output="screen" />
 
 </launch>
