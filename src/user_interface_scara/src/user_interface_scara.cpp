@@ -32,10 +32,12 @@ public:
   ros::Subscriber calc_pose_sub;
   ros::Subscriber calc_angles_sub;
   ros::Subscriber pose_ok_sub;
+  ros::Subscriber checked_angles_sub;
 private:
   void calc_pose_callback(const geometry_msgs::Pose& pose);
   void calc_angles_callback(const std_msgs::Float64MultiArray& angles_array);
   void pose_ok_callback(const std_msgs::Bool pose_ok_);
+  void checked_angles_callback(const std_msgs::Float64MultiArray &angles);
   ros::NodeHandle n;
 };
 
@@ -44,8 +46,8 @@ UserInterface::UserInterface()
   set_pose_pub = n.advertise<geometry_msgs::Pose>("set_pose", 1);
   set_angles_pub = n.advertise<std_msgs::Float64MultiArray>("set_angles_array", 1);
   calc_pose_sub = n.subscribe("/calc_pose", 100, &UserInterface::calc_pose_callback, this);
-  calc_angles_sub = n.subscribe("/calc_angles_array", 100, &UserInterface::calc_angles_callback, this);
   pose_ok_sub = n.subscribe("/pose_ok", 100, &UserInterface::pose_ok_callback, this);
+  checked_angles_sub = n.subscribe("/checked_angles_array", 1000, &UserInterface::checked_angles_callback, this);
   winkel.data.resize(5);
 }
 
@@ -100,6 +102,18 @@ void UserInterface::calc_pose_callback(const geometry_msgs::Pose& pose)
 }
 
 void UserInterface::calc_angles_callback(const std_msgs::Float64MultiArray& angles_array)
+{
+  if (pose_ok)
+  {
+    ROS_INFO("Callculated Angles are: Angle1: %.2f Angle2: %.2f Angle3: %.2f",
+              angles_array.data[0], angles_array.data[1], angles_array.data[2]);
+  } else
+  {
+    std::printf("\nThis Position is not valid.");
+  }
+}
+
+void UserInterface::checked_angles_callback(const std_msgs::Float64MultiArray& angles_array)
 {
   if (pose_ok)
   {
