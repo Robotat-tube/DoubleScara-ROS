@@ -41,10 +41,10 @@ public:
 
 
     float xa, ya, xb, yb, h, phi, delta, xc, yc, left_arm_angle, right_arm_angle;
-    xa = -L1*sin(degreetorad(leftMotor)); // left motor
-    ya = L1*cos(degreetorad(leftMotor));
-    xb = L1*sin(degreetorad(rightMotor)) + L0; // right motor
-    yb = L1*cos(degreetorad(rightMotor));
+    xa = -L1*sin(leftMotor); // left motor
+    ya = L1*cos(leftMotor);
+    xb = L1*sin(rightMotor) + L0; // right motor
+    yb = L1*cos(rightMotor);
 
     h = sqrt(pow(xb - xa, 2) + pow(yb - ya, 2));
     phi = atan2((yb - ya),(xb - xa));
