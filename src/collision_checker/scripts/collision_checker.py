@@ -7,6 +7,7 @@ import numpy as np
 from shapely import affinity
 from shapely.geometry import Point
 from shapely.geometry import Polygon
+from math import pi
 
 #rectangular dimensions (in mm)
 rect_length = 81
