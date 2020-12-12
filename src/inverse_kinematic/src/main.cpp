@@ -74,11 +74,11 @@ class Inverse_Class{
 
           //pass calculated angles in msg
             pub_msgs_.data.resize(5);
-            pub_msgs_.data[0] = theta0_; //XY-Ebene
-            pub_msgs_.data[1] = theta1_; //XY-Ebene
-            pub_msgs_.data[2] = theta2_; //Z-Achse
-            pub_msgs_.data[3] = theta3_; //Winkel für simulation
-            pub_msgs_.data[4] = theta4_; //Winkel für simulation
+            pub_msgs_.data[0] = degreetorad(theta0_); //XY-Ebene
+            pub_msgs_.data[1] = degreetorad(theta1_); //XY-Ebene
+            pub_msgs_.data[2] = degreetorad(theta2_); //Z-Achse
+            pub_msgs_.data[3] = degreetorad(theta3_); //Winkel für simulation
+            pub_msgs_.data[4] = degreetorad(theta4_); //Winkel für simulation
 
             pub_.publish(pub_msgs_);
       } //Callback-Ende
