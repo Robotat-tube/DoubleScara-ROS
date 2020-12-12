@@ -95,7 +95,7 @@
     <child
       link="Left_Wing" />
     <axis
-      xyz="0 0 1" />
+      xyz="0 0 -1" />
   </joint>
   <link
     name="Left_Arm">
@@ -148,7 +148,7 @@
     <child
       link="Left_Arm" />
     <axis
-      xyz="0 0 1" />
+      xyz="0 0 -1" />
   </joint>
   <link
     name="Pusher">
