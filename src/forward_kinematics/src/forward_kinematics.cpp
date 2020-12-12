@@ -57,7 +57,8 @@ public:
     //pass calculated coordinates in msg
     pub_pos_msg.position.x = xc;
     pub_pos_msg.position.y = yc;
-    pub_pos_msg.position.z = angleToLine(zMotor);	
+    pub_pos_msg.position.z = angleToLine(zMotor);
+    ROS_INFO("forward_kinamatics.cpp: xc= %f, yc=%f, z=%f \n", xc, yc, pub_pos_msg.position.z);
 
     pub_.publish(pub_pos_msg);
   } //Callback-Ende
