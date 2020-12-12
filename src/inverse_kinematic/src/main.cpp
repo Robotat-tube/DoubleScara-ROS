@@ -53,6 +53,8 @@ class Inverse_Class{
             alpha_  = calc_alpha();
             beta_   = calc_beta();
             theta0_ = calc_theta0();
+          
+          
           //Equation 3-4
             //Winkel werden noch auf die "andere seite gelegt" -> Equation 3-4 noch 180-Ergebnis
             //180-Ergebnis aufgrund der Skizze in Teams
@@ -83,24 +85,30 @@ class Inverse_Class{
             pub_.publish(pub_msgs_);
       } //Callback-Ende
 
+
     float calc_l04(){
         return sqrt((Ex_ * Ex_)*(Ey_ * Ey_));
     }
     float calc_alpha(){
-        return (90 - radtodegree(atan((Ey_/Ex_))));
+        //return (90 - radtodegree(atan((Ey_/Ex_))));
+        return (90 - radtodegree(atan2(Ex_, Ey_)));
     }
     float calc_beta(){
-        return radtodegree( acos(L1_*L1_ - L2_*L2_ + l04_*l04_)/(2*L1_*l04_) );
+        return radtodegree( acos(  (L1_*L1_ - L2_*L2_ + l04_*l04_)/(2*L1_*l04_) ));
     }
     float calc_theta0(){
         return (beta_ - alpha_);
     }
 
+
+
+
     float calc_l14(){
         return sqrt( ((L0_-Ex_)*(L0_-Ex_)) + (Ey_*Ey_));
     }
     float calc_gamma(){
-        return ( 90 - radtodegree(atan(Ey_/(L0_ - Ex_))));
+        //return ( 90 - radtodegree(atan(Ey_/(L0_ - Ex_))));
+        return ( 90 - radtodegree(atan2((L0_ - Ex_),Ey_)));
     }
     float calc_delta(){
         return ( radtodegree( acos( (L1_*L1_ - L2_*L2_ + l14_*l14_)/(2*L1_*l14_))));
