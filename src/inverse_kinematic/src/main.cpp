@@ -90,7 +90,6 @@ class Inverse_Class{
         return sqrt((Ex_ * Ex_)*(Ey_ * Ey_));
     }
     float calc_alpha(){
-        //return (90 - radtodegree(atan((Ey_/Ex_))));
         return (90 - radtodegree(atan2(Ex_, Ey_)));
     }
     float calc_beta(){
@@ -107,7 +106,6 @@ class Inverse_Class{
         return sqrt( ((L0_-Ex_)*(L0_-Ex_)) + (Ey_*Ey_));
     }
     float calc_gamma(){
-        //return ( 90 - radtodegree(atan(Ey_/(L0_ - Ex_))));
         return ( 90 - radtodegree(atan2((L0_ - Ex_),Ey_)));
     }
     float calc_delta(){
