@@ -26,13 +26,16 @@ public:
   float get_float();
   geometry_msgs::Pose pose;
   std_msgs::Float64MultiArray winkel;
+  bool pose_ok;
   ros::Publisher set_pose_pub;
   ros::Publisher set_angles_pub;
   ros::Subscriber calc_pose_sub;
   ros::Subscriber calc_angles_sub;
+  ros::Subscriber pose_ok_sub;
 private:
   void calc_pose_callback(const geometry_msgs::Pose& pose);
   void calc_angles_callback(const std_msgs::Float64MultiArray& angles_array);
+  void pose_ok_callback(const std_msgs::Bool pose_ok_);
   ros::NodeHandle n;
 };
 
@@ -42,6 +45,7 @@ UserInterface::UserInterface()
   set_angles_pub = n.advertise<std_msgs::Float64MultiArray>("set_angles_array", 1);
   calc_pose_sub = n.subscribe("/calc_pose", 100, &UserInterface::calc_pose_callback, this);
   calc_angles_sub = n.subscribe("/calc_angles_array", 100, &UserInterface::calc_angles_callback, this);
+  pose_ok_sub = n.subscribe("/pose_ok", 100, &UserInterface::pose_ok_callback, this);
   winkel.data.resize(5);
 }
 
@@ -92,12 +96,24 @@ float UserInterface::get_float()
 void UserInterface::calc_pose_callback(const geometry_msgs::Pose& pose)
 {
   std::printf("\nCallculated Pose is: X: %.2f  Y: %.2f  Z: %.2f", pose.position.x,
-            pose.position.y, pose.position.z);
+                pose.position.y, pose.position.z);
 }
 
 void UserInterface::calc_angles_callback(const std_msgs::Float64MultiArray& angles_array)
 {
-  ROS_INFO("Got calculated Angles");
+  if (pose_ok)
+  {
+    ROS_INFO("Callculated Angles are: Angle1: %.2f Angle2: %.2f Angle3: %.2f",
+              angles_array.data[0], angles_array.data[1], angles_array.data[2]);
+  } else
+  {
+    std::printf("\nThis Position is not valid.");
+  }
+}
+
+void UserInterface::pose_ok_callback(const std_msgs::Bool pose_ok_)
+{
+  pose_ok = pose_ok_.data;
 }
 
 void run_ros()
@@ -125,7 +141,7 @@ int main(int argc, char **argv)
     do
     {
       std::cout << "Bitte wählen Sie eine Möglichkeit aus:" << std::endl;
-      std::cout << "| 1: TCP Pose eingeben\n| 2: Motoren Winkel eingeben\n| 3: Beenden" << std::endl;
+      std::cout << "| 1: TCP Position eingeben\n| 2: Motoren Winkel eingeben\n| 3: Beenden" << std::endl;
 
       mode = user_interface.get_int();
 
@@ -133,12 +149,12 @@ int main(int argc, char **argv)
 
     switch (mode){
       case 1:
-        std::cout << "Pose eingeben: x y z\nX: ";
-        user_interface.pose.position.x = user_interface.get_float();
+        std::cout << "Position eingeben: (in mm) x y z\nX: ";
+        user_interface.pose.position.x = user_interface.get_float() / 1000;
         std::cout << "Y: ";
-        user_interface.pose.position.y = user_interface.get_float();
+        user_interface.pose.position.y = user_interface.get_float() / 1000;
         std::cout << "Z: ";
-        user_interface.pose.position.z = user_interface.get_float();
+        user_interface.pose.position.z = user_interface.get_float() / 1000;
         user_interface.set_pose_pub.publish(user_interface.pose);
         break;
       case 2:

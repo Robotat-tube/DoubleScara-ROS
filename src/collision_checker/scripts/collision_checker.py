@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import rospy
 from std_msgs.msg import Bool
-from std_msgs.msg import Float32MultiArray
+from std_msgs.msg import Float64MultiArray
 # https://shapely.readthedocs.io/en/stable/manual.html#geometric-objects
 import numpy as np
 from shapely import affinity
@@ -21,7 +21,7 @@ yo1 = 0
 yo2 = 0
 
 
-def detect_collision(left_angle, right_angle):    
+def detect_collision(left_angle, right_angle):
     p1 = Polygon([(xo1-rect_width/2 ,yo1), (xo1-rect_width/2, yo1+rect_length), (xo1+rect_width/2, yo1+rect_length), (xo1+rect_width/2, yo1)])
     c1 = Point(xo2, circle_distance_to_servo).buffer(circle_radius)
     p1_rotated = affinity.rotate(p1, left_angle, Point(xo1,0))
@@ -32,7 +32,7 @@ def detect_collision(left_angle, right_angle):
 def calc_angles_array_callback(floatArray):
 	rospy.loginfo("inside calc_angles_array_callback: received [" + str(round(floatArray.data[0], 1)) + " , " + str(round(floatArray.data[1],1)) + "]")
 	rospy.loginfo("detect_collision(floatArray.data[0], floatArray.data[1]) = " + str(detect_collision(floatArray.data[0], floatArray.data[1])))
-	pub_pose_ok.publish(detect_collision(floatArray.data[0], floatArray.data[1]))			
+	pub_pose_ok.publish(detect_collision(floatArray.data[0], floatArray.data[1]))
 	if(detect_collision(floatArray.data[0], floatArray.data[1]) == True):
 		pub_checked_angles_array.publish(floatArray)
 
@@ -40,7 +40,7 @@ def calc_angles_array_callback(floatArray):
 def set_angle_array_callback(floatArray):
 	rospy.loginfo("inside set_angle_array_callback: received [" + str(round(floatArray.data[0], 1)) + " , " + str(round(floatArray.data[1],1)) + "]")
 	rospy.loginfo("detect_collision(floatArray.data[0], floatArray.data[1]) = " + str(detect_collision(floatArray.data[0], floatArray.data[1])))
-	pub_pose_ok.publish(detect_collision(floatArray.data[0], floatArray.data[1]))			
+	pub_pose_ok.publish(detect_collision(floatArray.data[0], floatArray.data[1]))
 	if(detect_collision(floatArray.data[0], floatArray.data[1]) == True):
 		pub_checked_angles_array.publish(floatArray)
 
@@ -51,11 +51,10 @@ if __name__ == '__main__':
 	rospy.init_node('collision_checker', anonymous=True)
 
 	pub_pose_ok = rospy.Publisher('pose_ok', Bool, queue_size=10)
-	pub_checked_angles_array = rospy.Publisher('checked_angles_array', Float32MultiArray, queue_size=10)
-	rospy.Subscriber("calc_angles_array", Float32MultiArray, calc_angles_array_callback)
-	rospy.Subscriber("set_angle_array", Float32MultiArray, set_angle_array_callback)
+	pub_checked_angles_array = rospy.Publisher('checked_angles_array', Float64MultiArray, queue_size=10)
+	rospy.Subscriber("calc_angles_array", Float64MultiArray, calc_angles_array_callback)
+	rospy.Subscriber("set_angles_array", Float64MultiArray, set_angle_array_callback)
 	rospy.spin()
 
     except rospy.ROSInterruptException:
         pass
-
