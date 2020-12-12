@@ -32,7 +32,7 @@ class Inverse_Class{
         //Base:
         L0_ = 0.114; //in Meter
         //Circle aprox of gear on Z-Axis
-        r_ = 0,014; //in Meter
+        r_ = 0.014; //in Meter
       }
 
       void callback(const geometry_msgs::Pose::ConstPtr& sub_msg){
