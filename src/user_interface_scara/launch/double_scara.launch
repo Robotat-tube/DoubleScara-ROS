@@ -18,5 +18,6 @@
   <node name="inverse_kinematic" pkg="MMR_Mech_Double_Scara_Invers" type="inverse_kinematic" />
   <node name="forward_kinematics" pkg="forward_kinematics" type="forward_kinematics" />
   <node name="robot_publish" pkg="robot_publish" type="robot_publish" />
+  <node name="collision_checker" pkg="collision_checker" type="collision_checker.py" />
 
 </launch>
