@@ -24,8 +24,8 @@ yo2 = 0
 def detect_collision(left_angle, right_angle):
     p1 = Polygon([(xo1-rect_width/2 ,yo1), (xo1-rect_width/2, yo1+rect_length), (xo1+rect_width/2, yo1+rect_length), (xo1+rect_width/2, yo1)])
     c1 = Point(xo2, circle_distance_to_servo).buffer(circle_radius)
-    p1_rotated = affinity.rotate(p1, left_angle, Point(xo1,0))
-    c1_rotated = affinity.rotate(c1, -right_angle, Point(xo2,0))
+    p1_rotated = affinity.rotate(p1, left_angle*180/pi, Point(xo1,0))
+    c1_rotated = affinity.rotate(c1, -right_angle* 180/pi, Point(xo2,0))
     return not p1_rotated.intersects(c1_rotated) # true if there is no collision
 
 
