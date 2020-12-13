@@ -142,13 +142,13 @@
     type="continuous">
     <origin
       xyz="0 0.06 0.0218"
-      rpy="0 0 1.25190781692008" />
+      rpy="0 0 0" />
     <parent
       link="Left_Wing" />
     <child
       link="Left_Arm" />
     <axis
-      xyz="0 0 -1" />
+      xyz="0 0 1" />
   </joint>
   <link
     name="Pusher">
@@ -306,12 +306,12 @@
     type="continuous">
     <origin
       xyz="0 0.0599999999999979 0.0327999999999994"
-      rpy="0 0 -1.22102267702235" />
+      rpy="0 0 0" />
     <parent
       link="Right_Wing" />
     <child
       link="Right_Arm" />
     <axis
-      xyz="0 0 1" />
+      xyz="0 0 -1" />
   </joint>
 </robot>

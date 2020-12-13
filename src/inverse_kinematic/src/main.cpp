@@ -49,7 +49,7 @@ class Inverse_Class{
           Ez_ = sub_msg->position.z;
 
           //Equation 3-3
-            ROS_INFO("**inverse_kinamatics**");
+            ROS_INFO("**inverse_kinamatics (all in degree)**");
             l04_    = calc_l04();
             ROS_INFO("l04_= %f \n", l04_);
             alpha_  = calc_alpha();
@@ -76,11 +76,14 @@ class Inverse_Class{
           // Circumference -> 2*PI*r
 
             theta2_ = lintoangle();
+            ROS_INFO("theta2_= %f \n", theta2_);
 
 
           //Simulationswinkel:
             theta3_ = calc_theta3();
+            ROS_INFO("theta3_= %f \n", theta3_);
             theta4_ = calc_theta4();
+            ROS_INFO("theta4_= %f \n", theta4_);
 
 
           //pass calculated angles in msg
