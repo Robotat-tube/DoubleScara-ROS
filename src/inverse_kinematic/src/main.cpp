@@ -50,6 +50,10 @@ class Inverse_Class{
 
           //Equation 3-3
             ROS_INFO("**inverse_kinamatics (all in degree)**");
+            ROS_INFO("Ex_= %f \n", Ex_);
+            ROS_INFO("Ey_= %f \n", Ey_);
+            ROS_INFO("Ez_= %f \n", Ez_);
+
             l04_    = calc_l04();
             ROS_INFO("l04_= %f \n", l04_);
             alpha_  = calc_alpha();
