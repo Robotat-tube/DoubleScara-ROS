@@ -40,7 +40,7 @@ class Inverse_Class{
             //           - acos() returns rad in range [-1,+1] -> OK FUER UNS?????
             //           - Funktionsreihenfolge beachten!
             //ACHSEN KOORDINATEN 0|0 AUFPASSEN! LIEGT DERZEIT IN MOTOR-ACHSE Links
-            //es wird Tangens verwendet und kein atan2 - ist das ok???? Kommen da die fehler her? 
+            //es wird Tangens verwendet und kein atan2 - ist das ok???? Kommen da die fehler her?
 
           //sub_msg verarbeiten und Ex_ Ey_ Ez_ auslesen
 
@@ -49,30 +49,42 @@ class Inverse_Class{
           Ez_ = sub_msg->position.z;
 
           //Equation 3-3
+            ROS_INFO("**inverse_kinamatics (all in degree)**");
             l04_    = calc_l04();
+            ROS_INFO("l04_= %f \n", l04_);
             alpha_  = calc_alpha();
+            ROS_INFO("alpha_= %f \n", alpha_);
             beta_   = calc_beta();
+            ROS_INFO("beta_= %f \n", beta_);
             theta0_ = calc_theta0();
-          
-          
+            ROS_INFO("theta0_= %f \n", theta0_);
+
+
           //Equation 3-4
             //Winkel werden noch auf die "andere seite gelegt" -> Equation 3-4 noch 180-Ergebnis
             //180-Ergebnis aufgrund der Skizze in Teams
             l14_    = calc_l14();
+            ROS_INFO("l14_= %f \n", l14_);
             gamma_  = 180 - calc_gamma();
+            ROS_INFO("gamma_= %f \n", gamma_);
             delta_  = 180 - calc_delta();
+            ROS_INFO("delta_= %f \n", delta_);
             theta1_ = calc_theta1();
+            ROS_INFO("theta1_= %f \n", theta1_);
 
           // Z-Axis
           // Circumference -> 2*PI*r
 
             theta2_ = lintoangle();
+            ROS_INFO("theta2_= %f \n", theta2_);
 
 
           //Simulationswinkel:
-            theta3_ = calc_theta3(); 
-            theta4_ = calc_theta4(); 
-            
+            theta3_ = calc_theta3();
+            ROS_INFO("theta3_= %f \n", theta3_);
+            theta4_ = calc_theta4();
+            ROS_INFO("theta4_= %f \n", theta4_);
+
 
           //pass calculated angles in msg
             pub_msgs_.data.resize(5);
@@ -128,7 +140,7 @@ class Inverse_Class{
       //Ermittelt ueber den Kosinussatz
       return (radtodegree(acos(  (l04_*l04_)-(L2_*L2_)-(L1_*L1_)+(2*L2_*L1_)  )));
     }
-    
+
     float calc_theta4(){
       //Ermittelt ueber den Kosinussatz
       return (radtodegree(acos(  (l14_*l14_)-(L1_*L1_)-(L2_*L2_)+(2*L1_*L2_)  )));
