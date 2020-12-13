@@ -50,6 +50,10 @@ class Inverse_Class{
 
           //Equation 3-3
             ROS_INFO("**inverse_kinamatics (all in degree)**");
+            ROS_INFO("Ex_= %f \n", Ex_);
+            ROS_INFO("Ey_= %f \n", Ey_);
+            ROS_INFO("Ez_= %f \n", Ez_);
+
             l04_    = calc_l04();
             ROS_INFO("l04_= %f \n", l04_);
             alpha_  = calc_alpha();
@@ -61,13 +65,11 @@ class Inverse_Class{
 
 
           //Equation 3-4
-            //Winkel werden noch auf die "andere seite gelegt" -> Equation 3-4 noch 180-Ergebnis
-            //180-Ergebnis aufgrund der Skizze in Teams
             l14_    = calc_l14();
             ROS_INFO("l14_= %f \n", l14_);
-            gamma_  = 180 - calc_gamma();
+            gamma_  = calc_gamma();
             ROS_INFO("gamma_= %f \n", gamma_);
-            delta_  = 180 - calc_delta();
+            delta_  = calc_delta();
             ROS_INFO("delta_= %f \n", delta_);
             theta1_ = calc_theta1();
             ROS_INFO("theta1_= %f \n", theta1_);
@@ -138,12 +140,12 @@ class Inverse_Class{
 
     float calc_theta3(){
       //Ermittelt ueber den Kosinussatz
-      return (radtodegree(acos(  (l04_*l04_)-(L2_*L2_)-(L1_*L1_)+(2*L2_*L1_)  )));
+      return (180-radtodegree(acos(  (l04_*l04_)-(L2_*L2_)-(L1_*L1_)+(2*L2_*L1_)  )));
     }
 
     float calc_theta4(){
       //Ermittelt ueber den Kosinussatz
-      return (radtodegree(acos(  (l14_*l14_)-(L1_*L1_)-(L2_*L2_)+(2*L1_*L2_)  )));
+      return (180-radtodegree(acos(  (l14_*l14_)-(L1_*L1_)-(L2_*L2_)+(2*L1_*L2_)  )));
     }
 
 
