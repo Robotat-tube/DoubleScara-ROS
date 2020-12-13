@@ -119,6 +119,9 @@ class Inverse_Class{
       return( (Ez_/(2*M_PI*r_))*360 );
     }
 
+
+
+
     float calc_theta3(){
       //Ermittelt ueber den Kosinussatz
       return (radtodegree(acos(  (l04_*l04_)-(L2_*L2_)-(L1_*L1_)+(2*L2_*L1_)  )));
