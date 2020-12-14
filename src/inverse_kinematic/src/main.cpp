@@ -90,11 +90,11 @@ class Inverse_Class{
 
           //pass calculated angles in msg
             pub_msgs_.data.resize(5);
-            pub_msgs_.data[0] = degreetorad(theta0_); //XY-Ebene
-            pub_msgs_.data[1] = degreetorad(theta1_); //XY-Ebene
+            pub_msgs_.data[0] = degreetorad(theta0_ ); //XY-Ebene
+            pub_msgs_.data[1] = degreetorad(theta1_ ); //XY-Ebene
             pub_msgs_.data[2] = degreetorad(theta2_); //Z-Achse
-            pub_msgs_.data[3] = degreetorad(theta3_); //Winkel für simulation
-            pub_msgs_.data[4] = degreetorad(theta4_); //Winkel für simulation
+            pub_msgs_.data[3] = degreetorad(theta3_ )-1.57; //Winkel für simulation
+            pub_msgs_.data[4] = degreetorad(theta4_ )+1.57; //Winkel für simulation
 
             pub_.publish(pub_msgs_);
       } //Callback-Ende
@@ -104,8 +104,8 @@ class Inverse_Class{
         return sqrt((Ex_ * Ex_)*(Ey_ * Ey_));
     }
     float calc_alpha(){
-        return (90 - radtodegree(atan2(Ex_, Ey_)));
-        //return (90 - radtodegree(atan(Ey_/Ex_)));
+        //return (90 - radtodegree(atan2(Ex_, Ey_)));
+        return (90 - radtodegree(atan(Ey_/Ex_)));
     }
     float calc_beta(){
         return radtodegree( acos(  (L1_*L1_ - L2_*L2_ + l04_*l04_)/(2*L1_*l04_) ));
@@ -121,8 +121,8 @@ class Inverse_Class{
         return sqrt( ((L0_-Ex_)*(L0_-Ex_)) + (Ey_*Ey_));
     }
     float calc_gamma(){
-        return ( 90 - radtodegree(atan2((L0_ - Ex_),Ey_)));
-        //return ( 90 - radtodegree(atan(Ey_/(L0_ - Ex_))));
+        //return ( 90 - radtodegree(atan2((L0_ - Ex_),Ey_)));
+        return ( 90 - radtodegree(atan(Ey_/(L0_ - Ex_))));
     }
     float calc_delta(){
         float tmp =  (L1_*L1_ - L2_*L2_ + l14_*l14_)/(2*L1_*l14_);
