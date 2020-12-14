@@ -104,8 +104,8 @@ class Inverse_Class{
         return sqrt((Ex_ * Ex_)*(Ey_ * Ey_));
     }
     float calc_alpha(){
-        //return (90 - radtodegree(atan2(Ex_, Ey_)));
-        return (90 - radtodegree(atan(Ey_/Ex_)));
+        return (90 - radtodegree(atan2(Ex_, Ey_)));
+        //return (90 - radtodegree(atan(Ey_/Ex_)));
     }
     float calc_beta(){
         return radtodegree( acos(  (L1_*L1_ - L2_*L2_ + l04_*l04_)/(2*L1_*l04_) ));
@@ -121,11 +121,21 @@ class Inverse_Class{
         return sqrt( ((L0_-Ex_)*(L0_-Ex_)) + (Ey_*Ey_));
     }
     float calc_gamma(){
-        //return ( 90 - radtodegree(atan2((L0_ - Ex_),Ey_)));
-        return ( 90 - radtodegree(atan(Ey_/(L0_ - Ex_))));
+        return ( 90 - radtodegree(atan2((L0_ - Ex_),Ey_)));
+        //return ( 90 - radtodegree(atan(Ey_/(L0_ - Ex_))));
     }
     float calc_delta(){
-        return ( radtodegree( acos( (L1_*L1_ - L2_*L2_ + l14_*l14_)/(2*L1_*l14_))));
+        float tmp =  (L1_*L1_ - L2_*L2_ + l14_*l14_)/(2*L1_*l14_);
+
+          //UEberrotationsausgleich - BUG-FIXING: Die rechnung stimmt vielleicht nicht  
+        do{
+          if(tmp>1){
+            tmp = tmp * -1;
+            tmp++; 
+          }
+        }while(tmp>1);
+
+        return ( radtodegree( acos(tmp)));
     }
     float calc_theta1(){
         return (delta_ - gamma_);
