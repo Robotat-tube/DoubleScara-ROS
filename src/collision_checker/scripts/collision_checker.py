@@ -32,8 +32,10 @@ def detect_collision(left_angle, right_angle):
 
 def calc_angles_array_callback(floatArray):
 	try:
-		rospy.loginfo("inside calc_angles_array_callback: received [" + str(round(floatArray.data[0], 1)) + " , " + str(round(floatArray.data[1],1)) + "]")
-		rospy.loginfo("detect_collision(floatArray.data[0], floatArray.data[1]) = " + str(detect_collision(floatArray.data[0], floatArray.data[1])))
+		rospy.loginfo("Collision Detection: inside calc_angles_array_callback: received [" + str(round(floatArray.data[0], 1)) + " , " + str(round(floatArray.data[1],1)) + "]")
+		rospy.loginfo("Collision Detection: detect_collision(" + str(floatArray.data[0]) + ", " + str(floatArray.data[1]) +
+		") = " + str(detect_collision(floatArray.data[0], floatArray.data[1])))
+		
 		pub_pose_ok.publish(detect_collision(floatArray.data[0], floatArray.data[1]))
 		if(detect_collision(floatArray.data[0], floatArray.data[1]) == True):
 			pub_checked_angles_array.publish(floatArray)
@@ -43,8 +45,10 @@ def calc_angles_array_callback(floatArray):
 
 def set_angle_array_callback(floatArray):
 	try:
-		rospy.loginfo("inside set_angle_array_callback: received [" + str(round(floatArray.data[0], 1)) + " , " + str(round(floatArray.data[1],1)) + "]")
-		rospy.loginfo("detect_collision(floatArray.data[0], floatArray.data[1]) = " + str(detect_collision(floatArray.data[0], floatArray.data[1])))
+		rospy.loginfo("Collision Detection: inside set_angle_array_callback: received [" + str(round(floatArray.data[0], 1)) + " , " + str(round(floatArray.data[1],1)) + "]")
+		rospy.loginfo("Collision Detection: detect_collision(" + str(floatArray.data[0]) + ", " + str(floatArray.data[1]) +
+		") = " + str(detect_collision(floatArray.data[0], floatArray.data[1])))
+		
 		pub_pose_ok.publish(detect_collision(floatArray.data[0], floatArray.data[1]))
 		if(detect_collision(floatArray.data[0], floatArray.data[1]) == True):
 			pub_checked_angles_array.publish(floatArray)
