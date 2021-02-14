@@ -93,15 +93,15 @@ class Inverse_Class{
             pub_msgs_.data[0] = degreetorad(theta0_ ); //XY-Ebene
             pub_msgs_.data[1] = degreetorad(theta1_ ); //XY-Ebene
             pub_msgs_.data[2] = degreetorad(theta2_); //Z-Achse
-            pub_msgs_.data[3] = degreetorad(theta3_ )-1.57; //Winkel für simulation
-            pub_msgs_.data[4] = degreetorad(theta4_ )+1.57; //Winkel für simulation
+            pub_msgs_.data[3] = degreetorad(theta3_ ); //Winkel für simulation
+            pub_msgs_.data[4] = degreetorad(theta4_ ); //Winkel für simulation
 
             pub_.publish(pub_msgs_);
       } //Callback-Ende
 
 
     float calc_l04(){
-        return sqrt((Ex_ * Ex_)*(Ey_ * Ey_));
+        return sqrt((Ex_ * Ex_)+(Ey_ * Ey_));
     }
     float calc_alpha(){
         //return (90 - radtodegree(atan2(Ex_, Ey_)));
@@ -150,12 +150,12 @@ class Inverse_Class{
 
     float calc_theta3(){
       //Ermittelt ueber den Kosinussatz
-      return (180-radtodegree(acos(  (l04_*l04_)-(L2_*L2_)-(L1_*L1_)+(2*L2_*L1_)  )));
+      return (180-radtodegree(acos( (L1_*L1_ + L2_*L2_ - l04_*l04_)/(2*L1_*L2_) )));
     }
 
     float calc_theta4(){
       //Ermittelt ueber den Kosinussatz
-      return (180-radtodegree(acos(  (l14_*l14_)-(L1_*L1_)-(L2_*L2_)+(2*L1_*L2_)  )));
+      return (180-radtodegree(acos( (L1_*L1_ + L2_*L2_ - l14_*l14_)/(2*L1_*L2_) )));
     }
 
 
